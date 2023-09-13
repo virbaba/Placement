@@ -1,19 +1,22 @@
 <link rel="stylesheet" href="/CSS/sign_up.css">
+<img src="/IMAGE/placement.png" alt="noimage" id="placement_img">
+
 <div id="sing-up-container">
-        <h1>Sign Up</h1>
-        <form action="/users/create" method="post">
-            <label for="name">Name</label><br>
-            <input type="text" name="name" id="name" placeholder="Your Name" required><br>
+
+    <h1 id="sign_up_heading">Sign Up</h1>
+
+    <form action="/users/create" method="POST">
+
+        <input type="text" name="name" id="name" placeholder="Your Name" required class="text_input">
     
-            <label for="email">Email</label>
-    <input type="email" name="email" id="email" placeholder="Email" required>
+        <input type="email" name="email" id="email" placeholder="Email" required class="text_input">
 
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" placeholder="Password" required>
+        <input type="password" name="password" id="password" placeholder="Password" required class="text_input">
         
-    <label for="c_pass">Confirm Password</label>
-    <input type="password" name="confirm_password" id="c_pass" placeholder="Confirm Password" required>
+        <input type="password" name="confirm_password" id="c_pass" placeholder="Confirm Password" required class="text_input">
 
-    <input type="submit" value="Sign Up">
-        </form>
-    </div>
+        <input type="submit" value="Sign Up" id="sign_up">
+
+    </form>
+
+</div>

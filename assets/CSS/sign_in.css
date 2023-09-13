@@ -52,21 +52,15 @@ input{
     color: white;
 }
 
-#name{
-    width: 95%;
-}
 #email{
     width: 95%;
     
 }
 
 #password{
-    width: 47%;
+    width: 95%;
 }
 
-#c_pass{
-    width: 47%;
-}
 
 #sign_up{
     background-image: linear-gradient(to right, rgb(61, 61, 236), rgb(232, 60, 60));
