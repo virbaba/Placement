@@ -1,7 +1,7 @@
 // import mongoose
 const mongoose = require('mongoose');
 
-mongoose.connect(`mongodb://127.0.0.1:27017/Placement`);
+mongoose.connect(`mongodb+srv://virbaba:1234@cluster0.wtn8e8t.mongodb.net/?retryWrites=true&w=majority`);
 
 // The default connection
 const db = mongoose.connection;

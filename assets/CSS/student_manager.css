@@ -1,0 +1,107 @@
+*{
+    color:white;
+}
+body {
+    font-family: Arial, sans-serif;
+}
+
+.form-container {
+    position: absolute;
+    right: 5%;
+    width: 500px;
+
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px chartreuse;
+
+    margin-top: 2%;
+}
+
+.section {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+
+    box-shadow: 1px 1px 2px 2px chartreuse;
+
+    background-image: linear-gradient(to bottom, rgb(134, 72, 233), rgb(164, 57, 231));
+}
+
+.section-title {
+    cursor: pointer;
+    font-size: 1.2em;
+    margin: 0;
+    color: white
+}
+
+.section-content {
+    /* display: none; */
+}
+
+input {
+    border-radius: 20px;
+    height: 35px;
+    width: 95%;
+
+    padding: 5px;
+    font-size: 1.2rem;
+
+    outline: 0;
+    border: 0;
+
+    color: white;
+
+    margin-top: 20px;
+    margin-left: 5px;
+
+    background-image: linear-gradient(to right,  rgb(150, 96, 237), rgb(161, 72, 216));
+
+    cursor: pointer;
+
+    letter-spacing: 1px;
+}
+::placeholder{
+    color: white;
+}
+input:hover{
+    background-image: linear-gradient(to right, rgb(161, 72, 216), rgb(150, 96, 237));
+}
+
+select {
+    width: 100%;
+    padding: 10px;
+
+    background-image: linear-gradient(to right,  rgb(150, 96, 237), rgb(161, 72, 216));
+    border-radius: 20px;
+   
+}
+option {
+    background-color: black;
+}
+
+
+input[type="submit"]{
+    background-image: linear-gradient(to right, rgb(61, 61, 236), rgb(232, 60, 60));
+}
+
+input[type="submit"]:hover{
+    background-image: linear-gradient(to right, rgb(225, 80, 80), rgb(73, 73, 231));
+}
+
+textarea{
+    background-image: linear-gradient(to right,  rgb(150, 96, 237), rgb(161, 72, 216));
+
+    font-size: 1.2rem;
+    outline: 0;
+    border: 0;
+    padding: 5px;
+}
+textarea:hover{
+    background-image: linear-gradient(to right, rgb(161, 72, 216), rgb(150, 96, 237));
+}
+
+input[type="radio"]{
+    width: 20%;
+}
+

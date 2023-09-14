@@ -7,5 +7,6 @@ const placement_manager_controller = require('../controller/placement_manager_co
 router.get('/', placement_manager_controller.placementManager);
 router.use('/users', require('./user'));
 router.use('/placement', require('./placement'));
+router.use('/students', require('./students'));
 
 module.exports = router;

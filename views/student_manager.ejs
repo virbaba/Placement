@@ -1,0 +1,112 @@
+<link rel="stylesheet" href="/CSS/student_manager.css">
+<!-- <p>
+    <% for(let courses of courseList) {%>
+        <%= courses.course %>
+    <%}%>
+
+    Hello world
+</p> -->
+
+    <div class="form-container">
+        <form action="" method="POST">
+            <h2>Add Student</h2>
+        
+        <!-- Student Details Section -->
+        <div class="section">
+            <h3 class="section-title">Student Details</h3> <br>
+            <div class="section-content">
+                <input type="text" id="first-name" name="first-name" required placeholder="First Name"><br><br>
+                
+                <input type="text" id="last-name" name="last-name" required placeholder="Last Name"><br><br>
+                
+                <input type="email" id="email" name="email" required placeholder="Student Email"><br><br>
+                
+                <input type="tel" id="contact" name="contact" required placeholder="Student Mobile Number"><br><br>
+                
+                <input type="radio" id="male" name="gender" value="male">
+                <label for="male">Male</label> 
+                <input type="radio" id="female" name="gender" value="female">
+                <label for="female">Female</label><br><br>
+                
+                <textarea id="address" name="address" required placeholder="Student Address" cols="35"></textarea><br><br>
+            </div>
+        </div>
+        
+        <!-- Higher Education Details Section -->
+        <div class="section">
+            <h3 class="section-title">Higher Education Details</h3>
+            <div class="section-content">
+
+                <input type="text" id="college-name" name="college-name" required placeholder="College Name"><br><br>
+                
+                <label for="specialization">Specialization:</label> <br>
+                <select id="specialization" name="specialization">
+                    <option value="" selected>Specialization</option>
+                    <option value="computer-science" class="specialization_option">Computer Science</option>
+                    <option value="engineering" class="specialization_option">Engineering</option>
+                    <option value="business" class="specialization_option">Business</option>
+                    <!-- Add more options as needed -->
+                </select><br>
+                
+                <input type="number" id="cgpa" name="cgpa" min="0" max="4" step="0.01" required placeholder="Student CGPA"><br><br>
+                
+                <label for="start-year">Start Year:</label> <br>
+                <select id="start-year" name="start-year">
+                    <option value="2021">2021</option>
+                    <option value="2020">2020</option>
+                    <option value="2019">2019</option>
+                    <!-- Add more options as needed -->
+                </select><br><br>
+                
+                <label for="end-year">End Year:</label> <br>
+                <select id="end-year" name="end-year">
+                    <option value="2025">2025</option>
+                    <option value="2024">2024</option>
+                    <option value="2023">2023</option>
+                    <!-- Add more options as needed -->
+                </select><br><br>
+            </div>
+        </div>
+        
+        <!-- Batch Section -->
+        <div class="section">
+            <h3 class="section-title">Batch Details</h3> <br>
+            <div class="section-content">
+                <select id="batch-name" name="batch-name" required>
+                    <option value="" selected>Batch Name</option>
+                    <option value="Carrer Camp MERN" class="specialization_option">Carrer Camp MERN</option>
+                    <option value="MEAN" class="specialization_option">MEAN</option>
+                    <option value="Data Science" class="specialization_option">Data Science</option>
+                    <!-- Add more options as needed -->
+                </select><br><br>
+                
+                <label for="batch-start-date">Start Date:</label> <br>
+                
+                <input type="date" id="batch-start-date" name="batch-start-date" required placeholder="Start Date"><br><br>
+                
+                <label for="batch-end-date">End Date:</label> <br>
+                <input type="date" id="batch-end-date" name="batch-end-date" required placeholder="End Date"><br><br>
+            </div>
+        </div>
+        
+        <!-- Course Score Section -->
+        <div class="section">
+            <h3 class="section-title">Course Score</h3> <br>
+            <div class="section-content">
+                <label for="course1">Data Structure And Algorithm:</label> <br>
+                <input type="number" id="course1" name="course1" min="0" max="100" required placeholder="Score"><br><br>
+                
+                <label for="course2">Web Devlopment:</label> <br>
+                <input type="number" id="course2" name="course2" min="0" max="100" required placeholder="Score"><br><br>
+                
+                <label for="course3">React Front End:</label> <br>
+                <input type="number" id="course3" name="course3" min="0" max="100" required placeholder="Score"><br><br>
+            </div>
+        </div>
+        
+        <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+
