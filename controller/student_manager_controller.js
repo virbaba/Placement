@@ -8,9 +8,12 @@ module.exports.studentManager = async (req, res) => {
         if(!req.isAuthenticated()){
             return res.redirect('/users/sign_up');
         }
-        return res.render('student_manager', {
+        // const student = await Student.find({});
+
+         return res.render('student_manager', {
             title: 'Placement | Student Manager',
-        })
+            // students : student
+        });
     }
     catch(err){
         console.log(err);
@@ -56,9 +59,19 @@ module.exports.addStudent = async(req, res) => {
             score: savedScore._id
           }).save();
 
-        console.log(savedStudent);
+        // console.log(savedStudent);
 
-        res.redirect('back');
+         
+            const student = {
+                _id: savedStudent._id,
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+                mobileNumber: req.body.mobileNumber,
+                address : req.body.address
+            };
+            return res.status(200).json(student);
+
         }
     }catch(err){
         console.log(`error coming in add student controller ${err}`);

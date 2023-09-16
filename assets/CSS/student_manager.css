@@ -4,7 +4,58 @@
 body {
     font-family: Arial, sans-serif;
 }
+/* This style for display */
+.detail-container {
+    position: absolute;
+    margin-top:2%;
+    left:5%;
 
+    width: 450px;
+    padding: 20px;
+
+    border-radius: 10px;
+
+    box-shadow: 0 4px 8px chartreuse;    
+}
+
+.display_info{
+    margin-top: 5%;
+    box-shadow: 0 4px 8px chartreuse; 
+    padding: 20px;  
+}
+
+
+#student_delete{
+
+    position: relative;
+    width: 35%;
+    padding:10px;
+
+    background-image: linear-gradient(to right, rgb(239, 51, 51), rgb(41, 235, 148));
+
+}
+#student_delete:hover{
+    background-image: linear-gradient(to right, rgb(41, 235, 148),rgb(239, 51, 51));
+}   
+
+.std_detail{
+    margin-left: 5%;
+    
+    padding-left: 5px;
+    padding-right: 5px;
+
+    box-shadow: 0 2px 4px chartreuse; 
+}
+
+.label {
+    font-weight: bold;
+}
+
+.info {
+    margin-bottom: 10px;
+}
+
+/* This style for form */
 .form-container {
     position: absolute;
     right: 5%;
@@ -105,3 +156,12 @@ input[type="radio"]{
     width: 20%;
 }
 
+
+/* submit button for check the detail */
+#student_deatil{
+    position: relative;
+    left: 20%;
+    width: 40%;
+    padding:10px;
+
+}

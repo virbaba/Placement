@@ -1,7 +1,12 @@
 <link rel="stylesheet" href="/CSS/student_manager.css">
+<!-- container to display student detail -->
+<div class="detail-container">
+        <!-- here i want to prepend my data --> 
+</div>
 
+<!-- This container help to fetch student data -->
     <div class="form-container">
-        <form action="/students/add" method="POST">
+        <form action="/students/add" method="post" id="studentForm">
             <h2>Add Student</h2>
         
         <!-- Student Details Section -->
@@ -100,9 +105,8 @@
             </div>
         </div>
         
-        <input type="submit" value="Submit">
+        <input type="submit" value="Submit" id="form_submit_button">
         </form>
     </div>
 
-    <script src="script.js"></script>
-
+    <script src="/JAVASCRIPT/student_add.js"></script>

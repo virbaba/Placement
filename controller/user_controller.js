@@ -20,6 +20,7 @@ module.exports.signIn = (req, res)=>{
     if(req.isAuthenticated()){
         return res.redirect('/placement/manager');
     }
+    
     return res.render('sign_in',{
         title:"Placement | Sign In"
     })
@@ -51,9 +52,16 @@ module.exports.create = async (req, res) => {
 
 // get sing in data 
 // create session for user
-module.exports.createSession = (req, res)=>{
+module.exports.createSession = async (req, res)=>{
    // req.flash('success','Log in successfully');
-    return res.redirect('/placement/manager');
+   const user = await User.findOne({email: req.body.email});
+    if(user){
+        res.redirect('/placement/manager');
+    }
+    else{
+        console.log('user not exists');
+        res.redirect('/users/sign_up');
+    }
 }
 
 // sign out controller
