@@ -86,9 +86,7 @@ body {
     color: white
 }
 
-.section-content {
-    /* display: none; */
-}
+
 
 input {
     border-radius: 20px;
@@ -133,11 +131,26 @@ option {
 
 
 input[type="submit"]{
+    position: relative;
+    width: 40%;
+    /* left: 15%; */
     background-image: linear-gradient(to right, rgb(61, 61, 236), rgb(232, 60, 60));
 }
 
 input[type="submit"]:hover{
     background-image: linear-gradient(to right, rgb(225, 80, 80), rgb(73, 73, 231));
+}
+
+
+
+#form_submit_button{
+    left: 0;
+    width: 100%;
+}
+
+#student_detail{
+    position: relative;
+    left: 20%;
 }
 
 textarea{
@@ -157,11 +170,3 @@ input[type="radio"]{
 }
 
 
-/* submit button for check the detail */
-#student_deatil{
-    position: relative;
-    left: 20%;
-    width: 40%;
-    padding:10px;
-
-}

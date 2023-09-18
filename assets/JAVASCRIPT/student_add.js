@@ -1,10 +1,9 @@
 
 $(document).ready(function() {
-    console.log($('#studentForm'))
+    
 $('#studentForm').submit(function(event) {
     // Prevent the default form submission behavior
     event.preventDefault();
-    console.log('hello');
     // Serialize form data to send via AJAX
     var formData = $(this).serialize();
 
@@ -15,6 +14,9 @@ $('#studentForm').submit(function(event) {
         success: function(data) {
             console.log(data);
             var student = data;
+
+             // Reset the form
+             $('#studentForm')[0].reset();
 
             var displayInfo = `
                 <div id="${student._id}" class="display_info">
@@ -49,6 +51,11 @@ $('#studentForm').submit(function(event) {
 
             // Prepend the new content to the detail-container
             $('.detail-container').prepend(displayInfo);
+            
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth' // This provides a smooth scroll effect, if supported by the browser
+            });
         },
         error: function(error) {
             console.error('Error:', error);

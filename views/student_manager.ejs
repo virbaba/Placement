@@ -1,7 +1,40 @@
 <link rel="stylesheet" href="/CSS/student_manager.css">
 <!-- container to display student detail -->
 <div class="detail-container">
-        <!-- here i want to prepend my data --> 
+        <% for(let student of students) { %>
+            <div id="student-<%= student._id %>" class="display_info">
+                <div class="info">
+                    <label class="label">First Name:</label>
+                    <span id="first-name" class="std_detail"><%= student.firstName %></span>
+                </div>
+                <div class="info">
+                    <label class="label">Last Name:</label>
+                    <span id="last-name" class="std_detail"><%= student.lastName %></span>
+                </div>
+                <div class="info">
+                    <label class="label">Email:</label>
+                    <span id="email" class="std_detail"><%= student.email %></span>
+                </div>
+                <div class="info">
+                    <label class="label">Mobile Number:</label>
+                    <span id="contact" class="std_detail"><%= student.mobileNumber %></span>
+                </div>
+                <div class="info">
+                    <label class="label">Address:</label>
+                    <span id="address" class="std_detail"><%= student.address %></span>
+                </div>
+
+                <a href="/students/delete/<%= student._id %>" id="students_delete" data-id="<%= student._id %>" class="delete-student">
+                    <input type="button" value="Delete" id="student_delete">
+                </a>
+
+                <a href="/students/display/<%= student._id %>" id="student_detail">
+                    <input type="submit" value="More Details" >
+                </a>  
+
+            </div>
+            
+        <% } %>
 </div>
 
 <!-- This container help to fetch student data -->
@@ -95,13 +128,13 @@
             <h3 class="section-title">Course Score</h3> <br>
             <div class="section-content">
                 <label for="course1">Data Structure And Algorithm:</label> <br>
-                <input type="number" id="course1" name="dsaScore" min="0" max="20000" required placeholder="Score"><br><br>
+                <input type="number" id="course1" name="dsaScore" min="0" max="20000" required placeholder="Score / 1200"><br><br>
                 
                 <label for="course2">Web Devlopment:</label> <br>
-                <input type="number" id="course2" name="webDevelopmentScore" min="0" max="20000" required placeholder="Score"><br><br>
+                <input type="number" id="course2" name="webDevelopmentScore" min="0" max="20000" required placeholder="Score / 1200"><br><br>
                 
                 <label for="course3">React Front End:</label> <br>
-                <input type="number" id="course3" name="reactFrontEnd" min="0" max="20000" required placeholder="Score"><br><br>
+                <input type="number" id="course3" name="reactFrontEnd" min="0" max="20000" required placeholder="Score / 1200"><br><br>
             </div>
         </div>
         
@@ -110,3 +143,4 @@
     </div>
 
     <script src="/JAVASCRIPT/student_add.js"></script>
+    <script src="/JAVASCRIPT/student_delete.js"></script>

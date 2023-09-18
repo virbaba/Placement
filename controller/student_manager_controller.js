@@ -8,11 +8,11 @@ module.exports.studentManager = async (req, res) => {
         if(!req.isAuthenticated()){
             return res.redirect('/users/sign_up');
         }
-        // const student = await Student.find({});
-
+         const student = await Student.find().sort('-createdAt');
+       
          return res.render('student_manager', {
             title: 'Placement | Student Manager',
-            // students : student
+            students : student
         });
     }
     catch(err){
@@ -47,6 +47,8 @@ module.exports.addStudent = async(req, res) => {
         // finally storing Student Data
         const { firstName, lastName, email, mobileNumber, gender, address} = req.body;
 
+        
+
         const savedStudent = await new Student({
             firstName: firstName,
             lastName: lastName,
@@ -61,7 +63,7 @@ module.exports.addStudent = async(req, res) => {
 
         // console.log(savedStudent);
 
-         
+         if(req.xhr){
             const student = {
                 _id: savedStudent._id,
                 firstName: req.body.firstName,
@@ -71,6 +73,8 @@ module.exports.addStudent = async(req, res) => {
                 address : req.body.address
             };
             return res.status(200).json(student);
+         }
+            
 
         }
     }catch(err){
@@ -78,4 +82,56 @@ module.exports.addStudent = async(req, res) => {
         res.redirect('back');
     }
     
+}
+
+// displaying the complete 
+
+module.exports.completeDetials = async (req, res) => {
+    const studentId = req.params.id;
+    const student_detail = await Student.findOne({_id : studentId});
+
+
+    const education_id = student_detail.education;
+    const batch_id = student_detail.batch;
+    const score_id = student_detail.score;
+    
+    
+    const education_detail = await Education.findOne({_id : education_id});
+    const batch_detail = await Batch.findOne({_id : batch_id});
+    const score_detail = await Score.findOne({_id : score_id});
+
+
+    return res.render('student_details', {
+        title: 'Placement | Student Details',
+        student : student_detail,
+        education : education_detail,
+        batch : batch_detail,
+        score : score_detail
+    })
+}
+
+// deleting the student
+module.exports.deleteStudent = async (req, res) => {
+
+    try{
+
+    const studentId = req.params.id;
+    const student_detail = await Student.findOne({_id : studentId});
+
+
+    const education_id = student_detail.education;
+    const batch_id = student_detail.batch;
+    const score_id = student_detail.score;
+    
+    await Student.deleteOne({_id : studentId});
+    await Education.deleteOne({_id : education_id});
+    await Batch.deleteOne({_id : batch_id});
+    await Score.deleteOne({_id : score_id});
+
+    res.redirect('back');
+
+    }catch(err){
+        console.log(err);
+    }
+
 }

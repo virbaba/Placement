@@ -41,6 +41,8 @@ const studentDetailSchema = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Score'
     }
+}, {
+  timestamps: true
 });
 
 const StudentDetailModel = mongoose.model('Student', studentDetailSchema);

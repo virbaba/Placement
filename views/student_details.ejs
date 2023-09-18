@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="/CSS/student_details.css">;
+<div class="container">
+    <div class="details-container" id="student-details">
+        <h1>Student Details</h1>
+        <div class="details-content">
+            <div><b>First Name:&nbsp;</b> <%= student.firstName %></div>
+            <div><b>Last Name:&nbsp;</b> <%= student.lastName %></div>
+            <div><b>Email:&nbsp;</b> <%= student.email %></div>
+            <div><b>Mobile Number:&nbsp;</b> <%= student.mobileNumber %></div>
+            <div><b>Address:&nbsp;</b> <%= student.address %> </div>
+        </div>
+    </div>
+
+    <div class="details-container" id="education-details">
+        <h1>Higher Education Details</h1>
+        <div class="details-content">
+            <div><b>College Name:&nbsp;</b> <%= education.collegeName %></div>
+            <div><b>Specialization:&nbsp;</b> <%= education.specialization %></div>
+            <div><b>CGPA:&nbsp;</b> <%= education.cgpa %> %</div>
+            <div><b>Start Year:&nbsp;</b><%= education.startYear %></div>
+            <div><b>End Year:&nbsp;</b> <%= education.endYear %></div>
+        </div>
+    </div>
+
+    
+    <div class="details-container" id="batch-details">
+        <h1>Batch Details</h1>
+        <div class="details-content">
+            <div><b>Batch Name:&nbsp;</b> <%= batch.batchName %></div>
+            <div><b>Start Year:&nbsp;</b> <%= new Date(batch.startDate).toISOString().split('T')[0] %> </div>
+            <div><b>End Year:&nbsp;</b> <%= new Date(batch.endDate).toISOString().split('T')[0] %> </div>
+        </div>
+    </div>
+
+    <div class="details-container" id="course-score">
+        <h1>Course Score</h1>
+        <div class="details-content">
+            <div><b>DSA Score:&nbsp;</b> <%= score.dsaScore %> / 1200 </div>
+            <div><b>Web Development Score:&nbsp;</b> <%= score.webDevelopmentScore %> / 1200 </div>
+            <div><b>React Front End Score:&nbsp;</b> <%= score.reactFrontEnd %>  / 1200 </div>
+        </div>
+    </div>
+</div>
