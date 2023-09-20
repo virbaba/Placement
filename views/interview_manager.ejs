@@ -1,0 +1,72 @@
+<link rel="stylesheet" href="/CSS/interview_manager.css">
+
+<!-- display the created interview details -->
+<div class="container">
+    <% for(interview of interviews) { %>
+    <div class="sub-container" id="<%= interview._id %>">
+
+        <div id="company-image">
+            <img src="/IMAGE/company.png" alt="" height="150" width="150">
+        </div>
+
+        <div class="details">
+        <label>Company Name:</label> &nbsp;&nbsp; <span><%= interview.companyName %></span>
+        </div>
+
+        <div class="details">
+        <label>Role:</label> &nbsp;&nbsp; <span><%= interview.role %></span>
+        </div>
+
+        <div class="details">
+        <label>Address:</label> &nbsp;&nbsp; <span><%= interview.address %></span>
+        </div>
+
+        <div class="details">
+        <label>Date:</label> &nbsp;&nbsp; <span><%= new Date(interview.date).toISOString().split('T')[0] %></span>
+        </div>
+
+        <a href=""  class="delete-student" >
+            <input type="button" value="Delete" id="interview_delete">
+        </a>
+
+        <a href="" >
+            <input type="submit" value="Allocate To Student" id="interview_allocation">
+        </a> 
+    
+    </div>
+<%}%>
+</div>
+
+<!-- form to create interview -->
+<div class="form-container">
+    <h2>Create Interview</h2> <br>
+    <form action="/interviews/create" method="post" id = "interviewForm" >
+      <div class="form-group">
+        <label for="companyName">Company Name</label>
+        <input type="text" id="companyName" name="companyName" required placeholder="Company Name" >
+      </div>
+      <div class="form-group">
+        <label for="role">Role</label>
+        <select id="role" name="role" required>
+          <option value="">Select Role</option>
+          <option value="Developer">Developer</option>
+          <option value="Designer">Designer</option>
+          <option value="Manager">Manager</option>
+          <!-- Add more options as needed -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <textarea id="address" name="address" rows="2" cols="45" required placeholder="Location"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" id="date" name="date" required>
+      </div>
+      <div class="form-group">
+        <button type="submit">Create Inteview</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="/JAVASCRIPT/interview_add.js"></script>

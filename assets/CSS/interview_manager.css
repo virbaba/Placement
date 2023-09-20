@@ -1,0 +1,159 @@
+/* This style for display container */
+.container {
+    position: absolute;
+    width: 700px;
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 50px;
+
+    box-shadow: 0 4px 8px chartreuse;
+    background-color: black;
+    
+  }
+
+  .sub-container{
+    margin: 10px 10px 20px;
+
+    box-shadow: 0 4px 8px chartreuse;
+    padding: 10px;
+  }
+
+  .details {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+
+  .details label {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .details span {
+    font-weight: normal;
+  }
+
+  #company-image{
+    border-radius: 50%;
+    position: absolute;
+    right: 30px;
+  }
+
+  #interview_delete{
+    position: relative;
+    width: 35%;
+    padding:10px;
+
+    border: 0;
+    outline: 0;
+    
+    border-radius: 25px;
+    color: white;
+    font-size: 1.2rem;
+    background-image: linear-gradient(to right, rgb(239, 51, 51), rgb(41, 235, 148));
+  }
+  #interview_delete:hover{
+    background-image: linear-gradient(to right, rgb(41, 235, 148),rgb(239, 51, 51));
+  }
+
+  #interview_allocation{
+    position: relative;
+    left: 25%;
+    width: 35%;
+    padding:10px;
+
+    border: 0;
+    outline: 0;
+    
+    border-radius: 25px;
+    color: white;
+    font-size: 1.2rem;
+
+    background-image: linear-gradient(to right, rgb(61, 61, 236), rgb(232, 60, 60));
+  }
+
+  #interview_allocation:hover{
+    background-image: linear-gradient(to right, rgb(232, 60, 60),rgb(61, 61, 236));
+  }
+
+
+/* this style for inteview form */
+.form-container {
+    position: absolute;
+    right: 20px;
+
+    width: 400px;
+
+    margin: 50px auto;
+    padding: 20px;
+
+    background-color: #fff;
+    border-radius: 10px;
+
+    box-shadow: 1px 1px 2px 2px chartreuse;
+    border: 1px dashed blueviolet;
+    background-image: linear-gradient(to bottom, rgb(134, 72, 233), rgb(164, 57, 231));
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+
+    color: white;
+  }
+  h2{
+    color:white;
+
+  }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%;
+    padding: 10px;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    font-size: 1.2rem;
+    color : white;
+
+    background-image: linear-gradient(to right,  rgb(150, 96, 237), rgb(161, 72, 216));
+
+    cursor: pointer;
+  }
+
+  ::placeholder{
+    color : white;
+  }
+
+  .form-group button {
+    padding: 10px 20px;
+    background-image: linear-gradient(to right, rgb(61, 61, 236), rgb(232, 60, 60));
+
+    color: #fff;
+
+    border: none;
+    border-radius: 5px;
+
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .form-group button:hover {
+     background-image: linear-gradient(to right, rgb(225, 80, 80), rgb(73, 73, 231));
+  }
+
+  .form-group input:hover{
+    background-image: linear-gradient(to right, rgb(161, 72, 216), rgb(150, 96, 237));
+  }
+  .form-group select:hover{
+    background-image: linear-gradient(to right, rgb(161, 72, 216), rgb(150, 96, 237));
+  }
+
+  option{
+    background-color: black;
+  }
