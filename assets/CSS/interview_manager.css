@@ -18,6 +18,8 @@
 
     box-shadow: 0 4px 8px chartreuse;
     padding: 10px;
+
+    cursor: pointer;
   }
 
   .details {
@@ -42,6 +44,8 @@
 
   #interview_delete{
     position: relative;
+    left : 5%;
+
     width: 35%;
     padding:10px;
 
@@ -91,7 +95,7 @@
     background-color: #fff;
     border-radius: 10px;
 
-    box-shadow: 1px 1px 2px 2px chartreuse;
+    box-shadow: 1px 1px 8px 2px chartreuse;
     border: 1px dashed blueviolet;
     background-image: linear-gradient(to bottom, rgb(134, 72, 233), rgb(164, 57, 231));
   }

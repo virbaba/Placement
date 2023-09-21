@@ -40,7 +40,13 @@ const studentDetailSchema = new Schema({
     score:{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Score'
-    }
+    },
+
+    interview:[{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Student',
+      status:String
+}],
 }, {
   timestamps: true
 });

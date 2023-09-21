@@ -29,7 +29,7 @@ $(document).ready(function() {
                         <div class="details">
                             <label>Date:</label> &nbsp;&nbsp; <span>${ new Date(interview.date).toISOString().split('T')[0] }</span>
                         </div>
-                        <a href="" class="delete-student" >
+                        <a href="/interviews/delete/${ interview._id }" class="delete-student" >
                             <input type="button" value="Delete" id="interview_delete">
                         </a>
                         <a href="" >

@@ -7,13 +7,15 @@
     width: 400px;
 
     border: 1px dashed blueviolet;
-    box-shadow: 1px 1px 2px 2px rgb(64, 226, 43);
+    box-shadow: 1px 1px 8px 2px chartreuse;
 
     padding:0;
 
     font-size: 1.2rem;
 
     background-image: linear-gradient(to bottom, rgb(134, 72, 233), rgb(164, 57, 231));
+
+    border-radius: 25px;
 }
 
 #sign_up_heading{
@@ -31,7 +33,7 @@ input{
     border-radius: 20px;
     height: 35px;
 
-    padding: 5px;
+    padding: 10px;
     font-size: 1.2rem;
 
     outline: 0;

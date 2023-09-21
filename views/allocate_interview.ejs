@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/CSS/allocate_interview.css">
+<!-- form to create interview -->
+<div class="form-container">
+    <h2>Student Detail</h2> <br>
+    <form action="/interviews/allocate" method="post" id = "allocateForm" >
+
+      <div class="form-group">
+        <label for="studentName">Student Name</label>
+        <input type="text" id="studentName" name="name" required placeholder="Student Name" >
+      </div>
+
+      <div class="form-group">
+        <label for="studentEmail">Student Email</label>
+        <input type="email" id="studentEmail" name="email" required placeholder="Student Email" >
+      </div>
+      
+      <div class="form-group">
+        <button type="submit">Allocate</button>
+      </div>
+    </form>
+  </div>

@@ -6,28 +6,30 @@
     flex-wrap: wrap;
 
     
-    margin: 0;
+    margin-left: 2%;
 
-    border: 2px solid white;
+    border-radius: 25px;
     padding: 20px;
     width: 60%;
 
-    box-shadow: 1px 1px 2px 2px orangered;
+    box-shadow: 1px 1px 8px 2px orangered;
 }
 .details-container {
     margin: 10px;
    
-    border: 1px solid white;
     padding: 10px;
     width: 45%;
 
-    box-shadow: 1px 1px 2px 2px rgb(236, 6, 182);
+    border-radius: 25px;
+
+    box-shadow: 1px 1px 8px 2px rgb(236, 6, 182);
 }
 h1{
     margin: 10px;
     padding: 10px;
-    box-shadow: 1px 1px 2px 2px green;
+    box-shadow: 1px 1px 8px 2px green;
     margin-bottom: 20px;
+    border-radius: 25px;
 }
 .details-content div {
     margin-bottom: 10px;
