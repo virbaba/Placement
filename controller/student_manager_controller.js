@@ -2,6 +2,8 @@ const Education = require('../models/education_detail');
 const Batch = require('../models/batch_detail');
 const Score = require('../models/score_detail');
 const Student = require('../models/student_detail');
+const Allocation = require('../models/allocated_interview_detail');
+const Interview = require('../models/interview_detail');
 
 module.exports.studentManager = async (req, res) => {
     try{
@@ -87,27 +89,52 @@ module.exports.addStudent = async(req, res) => {
 // displaying the complete 
 
 module.exports.completeDetials = async (req, res) => {
-    const studentId = req.params.id;
-    const student_detail = await Student.findOne({_id : studentId});
+    try{
+        // fetching the complete details of student and it's related interview and interview status
+        const studentId = req.params.id;
+        const student_detail = await Student.findOne({_id : studentId});
+
+        const education_id = student_detail.education; // education id
+        const batch_id = student_detail.batch; // batch id
+        const score_id = student_detail.score; // score id
+        
+        const education_detail = await Education.findOne({_id : education_id}); // education_detail
+        const batch_detail = await Batch.findOne({_id : batch_id}); // batch_detail
+        const score_detail = await Score.findOne({_id : score_id}); // score_detail
+
+        // Find allocation documents for the specified student
+        const allocations = await Allocation.find({ student: studentId });
+
+        // Extract interview IDs from the allocations
+        const interviewIds = allocations.map(allocation => allocation.interview);
+
+        // Find interviews using the extracted IDs
+        const interviews = await Interview.find({ '_id': { $in: interviewIds } });
+
+        // Combine interview data with status
+        const interviewAndStatus = allocations.map(allocation => {
+        const interview = interviews.find(interview => interview._id.equals(allocation.interview));
+        return {
+            allocationStatus: allocation,
+            interviewData: interview
+        };
+        });
 
 
-    const education_id = student_detail.education;
-    const batch_id = student_detail.batch;
-    const score_id = student_detail.score;
+
+        return res.render('student_details', {
+            title: 'Placement | Student Details',
+            student : student_detail,
+            education : education_detail,
+            batch : batch_detail,
+            score : score_detail,
+            interviewAndStatus: interviewAndStatus
+        });
+    }
+    catch(err){
+        console.log(`error coming in display all details of student ${err}`);
+    }
     
-    
-    const education_detail = await Education.findOne({_id : education_id});
-    const batch_detail = await Batch.findOne({_id : batch_id});
-    const score_detail = await Score.findOne({_id : score_id});
-
-
-    return res.render('student_details', {
-        title: 'Placement | Student Details',
-        student : student_detail,
-        education : education_detail,
-        batch : batch_detail,
-        score : score_detail
-    })
 }
 
 // deleting the student

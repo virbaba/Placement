@@ -34,3 +34,99 @@ h1{
 .details-content div {
     margin-bottom: 10px;
 }
+
+
+/* interview details container style  */
+.interview-container {
+    position: absolute;
+    right: 10px;
+
+    background-color: black;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgb(255, 0, 179);
+    width: 400px;
+    margin: 0 auto;
+
+    color: white;
+}
+
+.sub-container{
+    box-shadow: 0 4px 8px chartreuse;
+    padding: 5px;
+    margin-top: 20px;
+
+    border-radius: 20px;
+}
+
+.info {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.status{
+    
+    position: absolute;
+    left: 200px;
+    display: flex;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+.status>div{
+   display: inline-block;
+   height: 10px;
+   width: 10px;
+   margin: 2px;
+    padding: 10px;
+   border-radius: 50%;
+   
+}
+
+#red{
+    background-color: red;
+}
+#orange{
+    background-color: orange;
+}
+#green{
+    background-color: green;
+}
+
+/* style for each interview status */
+.int_status{
+    position: absolute;
+    right: 30px;
+    padding: 10px;
+    border-radius: 50%;
+}
+/* this style for hold interview */
+#fail_status{
+    background-color: red;
+}
+/* this style for hold interview */
+#hold_status{
+    background-color: orange;
+    animation: blink 0.5s infinite alternate;
+}
+
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0.5;
+    }
+}
+
+/* this style for pass interview */
+#pass_status{
+    background-color: green;
+}
+
+

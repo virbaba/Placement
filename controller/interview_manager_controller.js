@@ -38,54 +38,57 @@ module.exports.create = async (req, res)=>{
 }
 
 // controller to allocate interview form
-let interviewId = "";
 module.exports.allocateForm = async(req, res) => {
     try{
         if(!req.isAuthenticated()){
             res.redirect('/users/sign_up');
         }
         
-        interviewId = req.params.id;
+        var interviewId = req.params.id;
         const interview = await Interview.findById(interviewId);
         // here we fetch all student id which is associated to particular interview
-        const studentsIds = interview.students;
-        // here we linked student data and interview status togetherly
-        let response;
-        if(studentsIds.length > 0){
-            // according to id fetching student
-            const student = await Student.find({ _id: { $in: studentsIds } });
-            // according to id fetching student interview status
-            const status = await Allocate.find({ student: { $in: studentsIds } });
+        let response = [];
+        if (interview) {
+            const studentsIds = interview.students;
             
-            // here we link student to his/her interview status
-            const studentStatusMap = new Map();
-
-            status.forEach(alloc => {
-                console.log(alloc);
-            studentStatusMap.set(alloc.student.toString(), alloc.status);
-            });
-
-            response = student.map(student => {
-            const Name = `${student.firstName} ${student.lastName}`;
-            const Email = student.email;
-            const Mobile = student.mobileNumber;
-            const Address = student.address;
-            const Status = studentStatusMap.get(student._id.toString()) || 'No status found';
-
-            return {
-                Name,
-                Email,
-                Mobile,
-                Address,
-                Status
-            };
-            });
-
-        }
+            if (studentsIds.length > 0) {
+              const student = await Student.find({ _id: { $in: studentsIds } });
+          
+              for (const studentId of studentsIds) {
+                const status = await Allocate.findOne({ interview: interviewId, student: studentId });
+          
+                const foundStudent = student.find(s => s._id.toString() === studentId.toString());
+          
+                if (status && foundStudent) {
+                  const interId = interviewId;
+                  const sid = foundStudent._id;
+                  const name = `${foundStudent.firstName} ${foundStudent.lastName}`;
+                  const email = foundStudent.email;
+                  const mobile = foundStudent.mobileNumber;
+                  const address = foundStudent.address;
+                  const statusValue = status.status;
+          
+                  response.push({
+                    interId,
+                    sid,
+                    name,
+                    email,
+                    mobile,
+                    address,
+                    status: statusValue
+                  });
+                }
+              }
+            }
+           
+          } else {
+            console.log('Interview not found');
+          }
           
         res.render('allocate_interview', {
             title: 'Placement | Interview Allocation',
-            students: response
+            students: response,
+            interId:  req.params.id
         })
     }catch(err){
         console.log(`error coming in allocating the interview ${err}`);
@@ -96,29 +99,60 @@ module.exports.allocate = async (req, res) => {
     try{
         
         const student = await Student.findOne({email: req.body.email});
-        const interview = await Interview.findById(interviewId);
+        const interview = await Interview.findById(req.body.interviewId);
 
         if(student && interview){
-            interview.students.push(student);
-            interview.save(); // saving the final version of interview
+            // check if student is not allot to same interview
+            if (!interview.students.includes(student.id)) {
+                interview.students.push(student);
+                interview.save(); // saving the final version of interview
+            }
+
+            if (!student.interview.includes(interview.id)) {
+                student.interview.push(interview)
+                student.save(); // saving the final version of student
+            }
+            
     
-            student.interview.push(interview)
-            student.save(); // saving the final version of student
+            let allocated = await Allocate.findOne({ interview: interview.id, student: student.id });
+            if(!allocated){
+                allocated = await new Allocate({
+                    student: student,
+                    interview: interview
+                }).save();
+            }
+            else{
+                console.log('Already Allotated');
+                res.redirect('back');
+            }
 
-            const allocated = await new Allocate({
-                student: student,
-                interview: interview
-            }).save();
-
-            res.redirect('back');
         }else{
+            console.log('student and interview not exists')
             res.redirect('back');
         }
     }catch(err){
-        console.log(`error coming in allocating the interview ${err}`);
+        console.log(`error coming in allo cating the interview ${err}`);
     }
 }
 
+// update the interview status
+module.exports.updateStatus = async (req, res) => {
+    try{
+        const interview = await Allocate.findOne({
+            student: req.body.studentId,
+            interview: req.body.interviewId
+          });
+        
+          console.log(interview)
+          interview.status = req.body.status;
+          interview.save();
+
+          res.redirect('back');
+
+    }catch(err){
+        console.log(`error coming in updating interview ${err}`);
+    }
+}
 // controller to delete the interview
 module.exports.delete = async (req, res) => {
     try{    

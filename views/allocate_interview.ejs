@@ -1,4 +1,69 @@
 <link rel="stylesheet" href="/CSS/allocate_interview.css">
+
+<div class="student-container">
+  <div>
+      <div class="status">
+          <div id="red" ></div>Fail
+          <div id="orange" ></div>Hold
+          <div id="green" ></div>Pass
+      </div>
+      <h2>Interview Details</h2>
+      <br>
+  </div>
+  <%for(student of students) {%>
+      <div class="sub-container">
+          
+          <% if(student.status === 'fail') {%>
+              <div id="fail_status" class="int_status">
+      
+              </div>
+          <%}%>
+
+          <% if(student.status === 'hold') {%>
+              <div id="hold_status" class="int_status">
+      
+              </div>
+          <%}%>
+
+          <% if(student.status === 'pass') { %>
+              <div id="pass_status" class="int_status">
+      
+              </div>
+          <%}%>
+  
+          
+          <div class="info">
+              <span class="label">Student Name:</span> &nbsp; <%= student.name %>
+          </div>
+          <div class="info">
+              <span class="label">Email:</span> &nbsp; <%= student.email %>
+          </div>
+          <div class="info">
+              <span class="label">Mobile:</span> &nbsp; <%= student.mobile %>
+          </div>
+          <div class="info date">
+              <span class="label">Address:</span> &nbsp; <%= student.address %>
+          </div>
+          
+          <form action="/interviews/status_update" method="POST" class="form-group">
+            <!-- Hidden input fields to send studentId and interviewId -->
+            <input type="hidden" name="studentId" value="<%= student.sid %>">
+            <input type="hidden" name="interviewId" value="<%= student.interId %>">
+            
+            <!-- Other form fields go here -->
+            <select name="status" id="" >
+              <option value="hold" selected>Change Interview Status</option>
+              <option value="fail" >Fail</option>
+              <option value="hold" >Hold</option>
+              <option value="pass" >Pass</option>
+            </select>
+            <button type="submit" class="update_submit">Update</button>
+          </form>
+      </div>
+  <%}%>
+  
+</div>
+
 <!-- form to create interview -->
 <div class="form-container">
     <h2>Student Detail</h2> <br>
@@ -12,6 +77,7 @@
       <div class="form-group">
         <label for="studentEmail">Student Email</label>
         <input type="email" id="studentEmail" name="email" required placeholder="Student Email" >
+        <input type="hidden" name="interviewId" value="<%= interId %>">
       </div>
       
       <div class="form-group">

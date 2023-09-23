@@ -1,4 +1,52 @@
 <link rel="stylesheet" href="/CSS/student_details.css">;
+<div class="interview-container">
+    <div>
+        <div class="status">
+            <div id="red" ></div>Fail
+            <div id="orange" ></div>Hold
+            <div id="green" ></div>Pass
+        </div>
+        <h2>Interview Details</h2>
+        <br>
+    </div>
+    <%for(content of interviewAndStatus) {%>
+        <div class="sub-container">
+            
+            <% if(content.allocationStatus.status === 'fail') {%>
+                <div id="fail_status" class="int_status">
+        
+                </div>
+            <%}%>
+
+            <% if(content.allocationStatus.status === 'hold') {%>
+                <div id="hold_status" class="int_status">
+        
+                </div>
+            <%}%>
+
+            <% if(content.allocationStatus.status === 'pass') { %>
+                <div id="pass_status" class="int_status">
+        
+                </div>
+            <%}%>
+    
+            
+            <div class="info">
+                <span class="label">Company Name:</span> &nbsp; <%= content.interviewData.companyName %>
+            </div>
+            <div class="info">
+                <span class="label">Role:</span> &nbsp; <%= content.interviewData.role %>
+            </div>
+            <div class="info">
+                <span class="label">Address:</span> &nbsp; <%= content.interviewData.address %>
+            </div>
+            <div class="info date">
+                <span class="label">Date:</span> &nbsp; <%= new Date(content.interviewData.date).toISOString().split('T')[0] %>
+            </div>
+        </div>
+    <%}%>
+    
+</div>
 <div class="container">
     <div class="details-container" id="student-details">
         <h1>Student Details</h1>

@@ -27,12 +27,12 @@ $(document).ready(function() {
                             <label>Address:</label> &nbsp;&nbsp; <span>${interview.address}</span>
                         </div>
                         <div class="details">
-                            <label>Date:</label> &nbsp;&nbsp; <span>${ new Date(interview.date).toISOString().split('T')[0] }</span>
+                            <label>Interview Date:</label> &nbsp;&nbsp; <span>${ new Date(interview.date).toISOString().split('T')[0] }</span>
                         </div>
                         <a href="/interviews/delete/${ interview._id }" class="delete-student" >
                             <input type="button" value="Delete" id="interview_delete">
                         </a>
-                        <a href="" >
+                        <a href="/interviews/allocate_form/${ interview._id }" >
                             <input type="submit" value="Allocate To Student" id="interview_allocation">
                         </a> 
                     </div>`;

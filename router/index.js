@@ -2,9 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 // home page controller
-const placement_manager_controller = require('../controller/placement_manager_controller');
+const user_controller = require('../controller/user_controller');
 
-router.get('/', placement_manager_controller.placementManager);
+router.get('/', user_controller.signUp);
 router.use('/users', require('./user'));
 router.use('/placement', require('./placement'));
 router.use('/students', require('./students'));
