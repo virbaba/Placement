@@ -80,6 +80,9 @@ module.exports.allocateForm = async(req, res) => {
                 }
               }
             }
+
+        if(response.length > 1)
+            response = response.reverse();
            
           } else {
             console.log('Interview not found');

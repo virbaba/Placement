@@ -29,6 +29,10 @@ const passport = require('passport');
 // import passport local
 const passportLocal = require('./config/passport_local_strategy');
 
+// import connect-flash for flash messagge
+const flash = require('connect-flash');
+
+
 // using cookie parser
 app.use(cookieParser());
 
@@ -83,6 +87,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 // this function goes to passport_local_strategy and check is session cookie is established or not ?
 app.use(passport.setAuthenticatedUser);
+
+// using flash
+app.use(flash());
+
+app.use(custMware.flash);
 
 // using router
 app.use('/', require('./router'));

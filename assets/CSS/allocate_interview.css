@@ -1,10 +1,10 @@
 /* this style for inteview form */
 .form-container {
     position: absolute;
-    right: 20px;
+    right: 2%;
     top:15%;
 
-    width: 400px;
+    width: 30%;
     
     padding: 20px;
 
@@ -84,20 +84,20 @@ option{
   /* this is my update status button styling */
   .update_submit{
     position: relative;
-    left: 650px;
+    left: 85%;
     top:10px;
   }
 
   /* interview details container style  */
 .student-container {
   position: absolute;
-  left: 10px;
+  left: 1%;
   top:15%;
   background-color: black;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 8px rgb(255, 0, 179);
-  width: 800px;
+  width: 55%;
 
   color: white;
 }

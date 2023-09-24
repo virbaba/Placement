@@ -10,7 +10,7 @@ body {
     margin-top:2%;
     left:5%;
 
-    width: 450px;
+    width: 50%;
     padding: 20px;
 
     border-radius: 10px;
@@ -23,6 +23,12 @@ body {
     box-shadow: 0 4px 8px chartreuse; 
     padding: 20px;  
 }
+
+#student-image{
+    border-radius: 50%;
+    position: absolute;
+    right: 30px;
+  }
 
 
 #student_delete{
@@ -59,7 +65,7 @@ body {
 .form-container {
     position: absolute;
     right: 5%;
-    width: 500px;
+    width: 35%;
 
     padding: 20px;
     border-radius: 10px;

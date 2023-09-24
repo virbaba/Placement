@@ -122,8 +122,11 @@ module.exports.completeDetails = async (req, res) => {
         };
         });
 
-
-        console.log(interviewAndStatus);
+        // this is for displaying interview details in LIFO order
+        if(interviewAndStatus.length > 1){
+            interviewAndStatus = interviewAndStatus.reverse();
+        }
+        
         return res.render('student_details', {
             title: 'Placement | Student Details',
             student : student_detail,

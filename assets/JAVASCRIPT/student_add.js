@@ -20,6 +20,9 @@ $('#studentForm').submit(function(event) {
 
             var displayInfo = `
                 <div id="${student._id}" class="display_info">
+                    <div id="student-image">
+                        <img src="/IMAGE/student.png" alt="" height="150" width="150">
+                    </div>
                     <div class="info">
                         <label class="label">First Name:</label>
                         <span id="first-name" class="std_detail">${student.firstName}</span>
