@@ -15,7 +15,7 @@ router.post('/allocate', interview_manager_controller.allocate);
 // update interview status
 router.post('/status_update', interview_manager_controller.updateStatus);
 // delete interview
-router.get('/delete/:id', interview_manager_controller.details);
+router.get('/delete/:id', interview_manager_controller.delete);
 
 
 module.exports = router;

@@ -103,13 +103,11 @@ module.exports.allocate = async (req, res) => {
 
         if(student && interview){
             // check if student is not allot to same interview
-            if (!interview.students.includes(student.id)) {
+            if (!interview.students.includes(student.id) && !student.interview.includes(interview.id)) {
                 interview.students.push(student);
-                interview.save(); // saving the final version of interview
-            }
+                student.interview.push(interview);
 
-            if (!student.interview.includes(interview.id)) {
-                student.interview.push(interview)
+                interview.save(); // saving the final version of interview
                 student.save(); // saving the final version of student
             }
             
@@ -120,6 +118,7 @@ module.exports.allocate = async (req, res) => {
                     student: student,
                     interview: interview
                 }).save();
+                res.redirect('back');
             }
             else{
                 console.log('Already Allotated');
@@ -156,6 +155,26 @@ module.exports.updateStatus = async (req, res) => {
 // controller to delete the interview
 module.exports.delete = async (req, res) => {
     try{    
+        const interviewId = req.params.id;
+        const interview_detail = await Interview.findOne({_id : interviewId});
+        const studentsIds = interview_detail.students;
+
+        
+        // remove interview id from all student which have to the students 
+        const removeStudentId = await Student.updateMany(
+            { interview: interviewId },
+            { $pull: { interview: interviewId } }
+        );
+
+        // deleting all interview status which is belong to single interview and students which is associated with single interview
+        const deletedInterviewStatus = await Allocate.deleteMany({
+            interview: interviewId,
+            student: { $in: studentsIds }
+        });
+
+        // at the end remove student
+        await Interview.deleteOne({_id : interviewId});
+        console.log('deleted interview');
         res.redirect('back');
     }catch(err){
         console.log(`error coming in deleting the interview ${err}`);

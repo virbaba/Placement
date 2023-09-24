@@ -5,6 +5,7 @@ const Student = require('../models/student_detail');
 const Allocation = require('../models/allocated_interview_detail');
 const Interview = require('../models/interview_detail');
 
+// display the student manager portal
 module.exports.studentManager = async (req, res) => {
     try{
         if(!req.isAuthenticated()){
@@ -23,7 +24,7 @@ module.exports.studentManager = async (req, res) => {
     
 }
 
-
+// help to add student
 module.exports.addStudent = async(req, res) => {
     try{
         const email = req.body.email;
@@ -88,7 +89,7 @@ module.exports.addStudent = async(req, res) => {
 
 // displaying the complete 
 
-module.exports.completeDetials = async (req, res) => {
+module.exports.completeDetails = async (req, res) => {
     try{
         // fetching the complete details of student and it's related interview and interview status
         const studentId = req.params.id;
@@ -112,7 +113,8 @@ module.exports.completeDetials = async (req, res) => {
         const interviews = await Interview.find({ '_id': { $in: interviewIds } });
 
         // Combine interview data with status
-        const interviewAndStatus = allocations.map(allocation => {
+        let interviewAndStatus = [];
+        interviewAndStatus = allocations.map(allocation => {
         const interview = interviews.find(interview => interview._id.equals(allocation.interview));
         return {
             allocationStatus: allocation,
@@ -121,7 +123,7 @@ module.exports.completeDetials = async (req, res) => {
         });
 
 
-
+        console.log(interviewAndStatus);
         return res.render('student_details', {
             title: 'Placement | Student Details',
             student : student_detail,
@@ -142,23 +144,37 @@ module.exports.deleteStudent = async (req, res) => {
 
     try{
 
-    const studentId = req.params.id;
-    const student_detail = await Student.findOne({_id : studentId});
+        const studentId = req.params.id;
+        const student_detail = await Student.findOne({_id : studentId});
+        const interviewIds = student_detail.interview;
 
+        const education_id = student_detail.education;
+        const batch_id = student_detail.batch;
+        const score_id = student_detail.score;
+        
+        await Education.deleteOne({_id : education_id});
+        await Batch.deleteOne({_id : batch_id});
+        await Score.deleteOne({_id : score_id});
+        
+        // remove student id from all interview 
+        const removeStudentId = await Interview.updateMany(
+            { students: studentId },
+            { $pull: { students: studentId } }
+        );
 
-    const education_id = student_detail.education;
-    const batch_id = student_detail.batch;
-    const score_id = student_detail.score;
-    
-    await Student.deleteOne({_id : studentId});
-    await Education.deleteOne({_id : education_id});
-    await Batch.deleteOne({_id : batch_id});
-    await Score.deleteOne({_id : score_id});
+        // deleting all interview status which is belong to single student and inteviews which is associated with single student
+        const deletedInterviewStatus = await Allocation.deleteMany({
+            student: studentId,
+            interview: { $in: interviewIds }
+        });
 
-    res.redirect('back');
+        // at the end remove student
+        await Student.deleteOne({_id : studentId});
+
+        res.redirect('back');
 
     }catch(err){
-        console.log(err);
+        console.log(`error coming in deletion of student ${err}`);
     }
 
 }

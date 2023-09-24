@@ -56,6 +56,8 @@
     color: white;
     font-size: 1.2rem;
     background-image: linear-gradient(to right, rgb(239, 51, 51), rgb(41, 235, 148));
+
+    cursor: pointer;
   }
   #interview_delete:hover{
     background-image: linear-gradient(to right, rgb(41, 235, 148),rgb(239, 51, 51));
@@ -75,6 +77,8 @@
     font-size: 1.2rem;
 
     background-image: linear-gradient(to right, rgb(61, 61, 236), rgb(232, 60, 60));
+
+    cursor: pointer;
   }
 
   #interview_allocation:hover{
