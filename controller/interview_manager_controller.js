@@ -27,6 +27,9 @@ module.exports.create = async (req, res)=>{
         if(req.xhr){ 
             return res.status(200).json(interview);
          }
+         else{
+            req.flash('success','Interview Created');
+         }
     }catch(err){
         console.log(`Error creating interview: ${err}`);
         if (req.xhr) {
@@ -85,7 +88,7 @@ module.exports.allocateForm = async(req, res) => {
             response = response.reverse();
            
           } else {
-            console.log('Interview not found');
+            req.flash('error','Interview not found');
           }
           
         res.render('allocate_interview', {
@@ -104,6 +107,20 @@ module.exports.allocate = async (req, res) => {
         const student = await Student.findOne({email: req.body.email});
         const interview = await Interview.findById(req.body.interviewId);
 
+        if(interview){
+            const dateOfInterview = interview.date;
+            const currentDate = new Date();
+
+            // this is done only for comparing date
+            currentDate.setHours(0, 0, 0, 0);
+            dateOfInterview.setHours(0, 0, 0, 0);
+
+            // if interview date is less than to current date mean interview date passed student can not be applied
+            if(dateOfInterview < currentDate){
+                req.flash('success', 'Interview Date Passed');
+                res.redirect('back');
+            }
+        }
         if(student && interview){
             // check if student is not allot to same interview
             if (!interview.students.includes(student.id) && !student.interview.includes(interview.id)) {
@@ -121,15 +138,16 @@ module.exports.allocate = async (req, res) => {
                     student: student,
                     interview: interview
                 }).save();
+                req.flash('success','Allocated Successfully');
                 res.redirect('back');
             }
             else{
-                console.log('Already Allotated');
+                req.flash('error','Already Allotated');
                 res.redirect('back');
             }
 
         }else{
-            console.log('student and interview not exists')
+            req.flash('error','student and interview not exists');
             res.redirect('back');
         }
     }catch(err){
@@ -140,15 +158,30 @@ module.exports.allocate = async (req, res) => {
 // update the interview status
 module.exports.updateStatus = async (req, res) => {
     try{
+        const sId = req.body.studentId; 
+        const intId = req.body.interviewId;
         const interview = await Allocate.findOne({
-            student: req.body.studentId,
-            interview: req.body.interviewId
+            student: sId,
+            interview: intId
           });
         
-          console.log(interview)
           interview.status = req.body.status;
           interview.save();
 
+          // this query help us to find student is palce or not if student inteview status is pass at least one
+            let placeStatus = [];
+            placeStatus = await Allocate.find({
+            student: sId,
+            status: "pass"
+            }).limit(1);
+
+            if(placeStatus.length > 0){
+                const result = await Student.updateOne({ _id: sId }, { $set: { placed: true } });
+            }
+            else{
+                const result = await Student.updateOne({ _id: sId }, { $set: { placed: false } });
+            }
+          req.flash('success','Updated Successfully');
           res.redirect('back');
 
     }catch(err){
@@ -177,8 +210,8 @@ module.exports.delete = async (req, res) => {
 
         // at the end remove student
         await Interview.deleteOne({_id : interviewId});
-        console.log('deleted interview');
-        res.redirect('back');
+
+         res.redirect('back');
     }catch(err){
         console.log(`error coming in deleting the interview ${err}`);
     }

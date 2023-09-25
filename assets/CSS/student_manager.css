@@ -1,11 +1,36 @@
-*{
+
+/* print csv data continer */
+#print-data-container{
     color:white;
+    margin-left:85%;
 }
+
+#print-csv-btn{
+    padding: 5px;
+    margin-bottom:10px;
+
+    border:0;
+    outline: 0;
+
+    width: 150px;
+    border-radius: 10px;
+    background-image: linear-gradient(to right, rgb(236, 29, 29), rgb(23, 23, 230));
+
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+#print-csv-btn:hover{
+    background-image: linear-gradient(to right,rgb(23, 23, 230), rgb(236, 29, 29));
+}
+
 body {
     font-family: Arial, sans-serif;
 }
 /* This style for display */
 .detail-container {
+    color:white;
     position: absolute;
     margin-top:2%;
     left:5%;
@@ -63,6 +88,7 @@ body {
 
 /* This style for form */
 .form-container {
+    color:white;
     position: absolute;
     right: 5%;
     width: 35%;
@@ -124,6 +150,7 @@ input:hover{
 }
 
 select {
+    color:white;
     width: 100%;
     padding: 10px;
 

@@ -4,6 +4,12 @@ const Score = require('../models/score_detail');
 const Student = require('../models/student_detail');
 const Allocation = require('../models/allocated_interview_detail');
 const Interview = require('../models/interview_detail');
+const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+
+const fs = require('fs').promises;
+const path = require('path');
+const { promisify } = require('util');
+
 
 // display the student manager portal
 module.exports.studentManager = async (req, res) => {
@@ -31,7 +37,7 @@ module.exports.addStudent = async(req, res) => {
         const existsUser = await Student.findOne({email: email});
         // check user exists or not
         if(existsUser){
-            console.log('User Already Exists');
+            req.flash('error','User Exists Already !');
             res.redirect('back');
         }
         else{
@@ -64,7 +70,6 @@ module.exports.addStudent = async(req, res) => {
             score: savedScore._id
           }).save();
 
-        // console.log(savedStudent);
 
          if(req.xhr){
             const student = {
@@ -75,7 +80,11 @@ module.exports.addStudent = async(req, res) => {
                 mobileNumber: req.body.mobileNumber,
                 address : req.body.address
             };
+            
             return res.status(200).json(student);
+         }
+         else{
+            req.flash('success','Student Added');
          }
             
 
@@ -174,6 +183,7 @@ module.exports.deleteStudent = async (req, res) => {
         // at the end remove student
         await Student.deleteOne({_id : studentId});
 
+        
         res.redirect('back');
 
     }catch(err){
@@ -181,3 +191,131 @@ module.exports.deleteStudent = async (req, res) => {
     }
 
 }
+
+// download CSV data
+
+module.exports.download = async (req, res) => {
+  const studentId = req.body.studentId;
+   
+  try {
+    const student = await Student.findOne({ _id: studentId });
+    const path = `E://Placement//downloads//${student.email}.csv`
+    generateCSV(student, path)
+    req.flash('success','downloaded');
+    res.redirect('back');
+  }
+  catch(err){
+    console.log(`error in single student download csv file ${err}`)
+  }
+};
+
+
+module.exports.downloadAll = async (req, res) => {
+    try{
+        const students = await Student.find({}); // Fetch all students
+
+        for (const student of students) {
+            const path = `E://Placement//downloadAll//${student.email}.csv`
+            await generateCSV(student, path);
+        } 
+        req.flash('success', 'Downloaded');
+        res.redirect('back')
+
+    }
+    catch(err){
+        console.error('Error:', err);
+        req.flash('error', 'Error generating CSV');
+        res.redirect('back');
+    }
+    
+};
+
+// this function generate CSV file
+async function generateCSV(student, filePath){
+    try {
+        if (!student) {
+          req.flash('error', 'Student Not Found');
+          return res.redirect('back');
+        }
+    
+        const education = await Education.findOne({ _id: student.education });
+        const batch = await Batch.findOne({ _id: student.batch });
+        const score = await Score.findOne({ _id: student.score });
+    
+        const records = [];
+        if(student.interview.length > 0){
+            for (const interviewId of student.interview) {
+                const interview = await Interview.findOne({ _id: interviewId });
+          
+                if (interview) {
+                  const allocate = await Allocation.find({
+                    student: student._id,
+                    interview: interviewId,
+                  });
+          
+                  if (allocate.length > 0) {
+                    const record = {
+                      SId: student.email,
+                      Name: `${student.firstName} ${student.lastName}`,
+                      College: education.collegeName, 
+                      Placed: student.placed ? 'Yes' : 'No',
+                      DSAFinalScore: score.dsaScore,
+                      webDFinalScore: score.webDevelopmentScore,
+                      ReactFinalScore: score.reactFrontEnd,
+                      InterviewCompany: interview.companyName,
+                      InterviewDate: interview.date,
+                      Role: interview.role,
+                      InterviewResult: allocate[0].status, // Assuming status is in Allocate
+                    };
+          
+                    records.push(record);
+                  } 
+              }
+            }
+        }
+        else {
+            const record = {
+                SId: student.email,
+                Name: `${student.firstName} ${student.lastName}`,
+                College: education.collegeName, 
+                Placed: student.placed ? 'Yes' : 'No',
+    
+                DSAFinalScore: score.dsaScore,
+                webDFinalScore: score.webDevelopmentScore,
+                ReactFinalScore: score.reactFrontEnd,
+    
+                InterviewCompany: "N/A",
+                InterviewDate: "N/A",
+                Role: "N/A",
+                InterviewResult: "N/A", // Assuming status is in Allocate
+              };
+    
+              records.push(record);
+      }
+        
+     
+
+        const csvWriter = createCsvWriter({
+          path: filePath, 
+          header: [
+            { id: 'SId', title: 'Student ID' },
+            { id: 'Name', title: 'Student Name' },
+            { id: 'College', title: 'Student College' }, 
+            { id: 'Placed', title: 'Placed' },
+            { id: 'DSAFinalScore', title: 'DSA Final Score' },
+            { id: 'webDFinalScore', title: 'WebD Final Score' },
+            { id: 'ReactFinalScore', title: 'React Final Score' },
+            { id: 'InterviewCompany', title: 'Company' },
+            { id: 'InterviewDate', title: 'Interview Date' },
+            { id: 'Role', title: 'Role' },
+            { id: 'InterviewResult', title: 'Interview Result' },
+          ],
+        });
+    
+        await csvWriter.writeRecords(records);
+        
+      } catch (error) {
+        console.error('Error:', error);
+      }
+}
+  

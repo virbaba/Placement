@@ -9,5 +9,6 @@ router.use('/users', require('./user'));
 router.use('/placement', require('./placement'));
 router.use('/students', require('./students'));
 router.use('/interviews', require('./interview'));
+router.use('/api', require('./jobs'));
 
 module.exports = router;

@@ -31,6 +31,7 @@ const passportLocal = require('./config/passport_local_strategy');
 
 // import connect-flash for flash messagge
 const flash = require('connect-flash');
+const custMware = require('./config/customflash');
 
 
 // using cookie parser
@@ -90,7 +91,7 @@ app.use(passport.setAuthenticatedUser);
 
 // using flash
 app.use(flash());
-
+// customize the flash message
 app.use(custMware.flash);
 
 // using router

@@ -1,4 +1,10 @@
 <link rel="stylesheet" href="/CSS/student_details.css">;
+<div id="print-data-container">
+    <form action="/students/download" method="post">
+        <input type="hidden" name="studentId" value="<%= student.id %>">
+        <input type="submit" value="Download Details" id="print-csv-btn">
+    </form>
+</div>
 <div class="interview-container">
     <div>
         <div class="status">

@@ -1,4 +1,9 @@
 <link rel="stylesheet" href="/CSS/student_manager.css">
+<div id="print-data-container">
+    <form action="/students/downloadAll" method="post">
+        <input type="submit" value="Download All" id="print-csv-btn">
+    </form>
+</div>
 <!-- container to display student detail -->
 <div class="detail-container">
         <% for(let student of students) { %>

@@ -30,7 +30,7 @@ module.exports.signIn = (req, res)=>{
 module.exports.create = async (req, res) => {
     try {
         if (req.body.password != req.body.confirm_password) {
-            console.log("Password does not match!");
+            req.flash('error','Invalid username or password !');
             return res.redirect('back');
         }
 
@@ -38,10 +38,10 @@ module.exports.create = async (req, res) => {
         
         if (!existingUser) {
             const newUser = await User.create(req.body);
-            console.log('User created successfully');
+            req.flash('success','Sign Up successfully');
             return res.redirect('/users/sign_in');
         } else {
-            console.log('User already exists');
+            req.flash('error','User Exists Already !');
             return res.redirect('back');
         }
     } catch (err) {
@@ -56,10 +56,11 @@ module.exports.createSession = async (req, res)=>{
    // req.flash('success','Log in successfully');
    const user = await User.findOne({email: req.body.email});
     if(user){
+        req.flash('success','Sign In Successfully');
         res.redirect('/placement/manager');
     }
     else{
-        console.log('user not exists');
+        req.flash('error','Invalid username or password !');
         res.redirect('/users/sign_up');
     }
 }
@@ -71,7 +72,7 @@ module.exports.signOut = (req, res, next)=>{
      if(err)
          return next(err);
  
-     //req.flash('success','loggout successfully');
+     req.flash('success','loggout successfully');
      res.redirect('/');
  
     });

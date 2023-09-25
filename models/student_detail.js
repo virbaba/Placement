@@ -28,6 +28,10 @@ const studentDetailSchema = new Schema({
     type: String,
     required: true
   },
+  placed:{
+      type: Boolean, 
+      default: false
+  },
   
   education:{
         type: mongoose.Schema.Types.ObjectId,
