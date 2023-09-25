@@ -1,0 +1,14 @@
+<link rel="stylesheet" href="/CSS/job.css">
+<div class="container">
+    <% for(job of jobs) { %>
+        <div class="box">
+            <h2>Position: &nbsp; <%= job.position %> </h2> <br>
+            <p> Company: <%= job.company %> </p>
+            <p> Location: <%= job.location %> </p>
+            <p> Date: <%= job.date %> </p>
+            <p> Salary: <%= job.salary %> </p>
+            <a href="<%= job.jobUrl %>"> <button> Apply Now </button> </a>
+          </div>
+    <% } %>
+   
+</div>

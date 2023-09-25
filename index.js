@@ -43,6 +43,8 @@ app.use(express.urlencoded());
 // for getting the json request
 app.use(express.json());
 
+
+
 // using static file
 app.use(express.static(__dirname+'/assets')); 
 

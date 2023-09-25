@@ -17,7 +17,6 @@
   "author": "Virender Singh",
   "license": "ISC",
   "dependencies": {
-    "axios": "^1.5.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.0.0",
     "cookie-parser": "^1.4.6",
@@ -26,6 +25,7 @@
     "express": "^4.18.2",
     "express-ejs-layouts": "^2.5.1",
     "express-session": "^1.17.3",
+    "linkedin-jobs-api": "^1.0.0",
     "mongoose": "^7.5.1",
     "nodemon": "^3.0.1",
     "noty": "^3.2.0-beta-deprecated",
