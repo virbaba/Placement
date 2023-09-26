@@ -9,6 +9,7 @@ module.exports.signUp = async (req, res)=>{
         return res.redirect('/placement/manager');
     }
 
+    // rendering the sign up page
     return res.render('sign_up',{
         title:"Placement | Sign Up"
     })
@@ -21,12 +22,13 @@ module.exports.signIn = (req, res)=>{
         return res.redirect('/placement/manager');
     }
     
+    // rendering the sign in page
     return res.render('sign_in',{
         title:"Placement | Sign In"
     })
 }
 
-// sign up controller
+// user create controller mean employer
 module.exports.create = async (req, res) => {
     try {
         if (req.body.password != req.body.confirm_password) {
@@ -34,8 +36,10 @@ module.exports.create = async (req, res) => {
             return res.redirect('back');
         }
 
+        // check if the user exist or not
         const existingUser = await User.findOne({ email: req.body.email });
         
+        // if not exist then create otherwise display message 
         if (!existingUser) {
             const newUser = await User.create(req.body);
             req.flash('success','Sign Up successfully');

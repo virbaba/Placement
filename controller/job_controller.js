@@ -1,5 +1,5 @@
 const linkedIn = require('linkedin-jobs-api');
-// here i am using job api of linked in
+// here using job api of linked in
 module.exports.jobs = async (req, res) => {
     const queryOptions = {
                 keyword: 'software engineer',
@@ -16,6 +16,7 @@ module.exports.jobs = async (req, res) => {
         let response = [];
         // fetching job accordin to queryOptions
         jobList = await linkedIn.query(queryOptions);
+        // redering to jobs page
         res.render('jobs', {
             title: "Placement | Jobs",
             jobs: jobList

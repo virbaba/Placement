@@ -1,13 +1,13 @@
-const Education = require('../models/education_detail');
-const Batch = require('../models/batch_detail');
-const Score = require('../models/score_detail');
-const Student = require('../models/student_detail');
-const Allocation = require('../models/allocated_interview_detail');
-const Interview = require('../models/interview_detail');
-const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+const Student = require('../models/student_detail'); // Student model
+const Education = require('../models/education_detail'); // Education model
+const Batch = require('../models/batch_detail'); // batch model
+const Score = require('../models/score_detail');// score model
+const Interview = require('../models/interview_detail');// interview model
+const Allocation = require('../models/allocated_interview_detail'); // interview allocation model
+const createCsvWriter = require('csv-writer').createObjectCsvWriter; // csc writer package to write date in csv file
 
-const fs = require('fs').promises;
-const path = require('path');
+const fs = require('fs').promises; // file system package
+const path = require('path'); // help to know path of file and directory
 const { promisify } = require('util');
 
 
@@ -57,7 +57,7 @@ module.exports.addStudent = async(req, res) => {
         const { firstName, lastName, email, mobileNumber, gender, address} = req.body;
 
         
-
+        // it's return the displayable info not all 
         const savedStudent = await new Student({
             firstName: firstName,
             lastName: lastName,
@@ -70,7 +70,7 @@ module.exports.addStudent = async(req, res) => {
             score: savedScore._id
           }).save();
 
-
+        // handling xmlhttprequest
          if(req.xhr){
             const student = {
                 _id: savedStudent._id,
@@ -102,11 +102,12 @@ module.exports.completeDetails = async (req, res) => {
     try{
         // fetching the complete details of student and it's related interview and interview status
         const studentId = req.params.id;
+        // fetching student details using student id
         const student_detail = await Student.findOne({_id : studentId});
 
-        const education_id = student_detail.education; // education id
-        const batch_id = student_detail.batch; // batch id
-        const score_id = student_detail.score; // score id
+        const education_id = student_detail.education; // education id in student model
+        const batch_id = student_detail.batch; // batch id in student model
+        const score_id = student_detail.score; // score id in student model
         
         const education_detail = await Education.findOne({_id : education_id}); // education_detail
         const batch_detail = await Batch.findOne({_id : batch_id}); // batch_detail
@@ -136,6 +137,7 @@ module.exports.completeDetails = async (req, res) => {
             interviewAndStatus = interviewAndStatus.reverse();
         }
         
+        // sending the complete details to ejs file to display complete info related to particular student with interview details
         return res.render('student_details', {
             title: 'Placement | Student Details',
             student : student_detail,
@@ -153,7 +155,6 @@ module.exports.completeDetails = async (req, res) => {
 
 // deleting the student
 module.exports.deleteStudent = async (req, res) => {
-
     try{
 
         const studentId = req.params.id;
@@ -192,7 +193,7 @@ module.exports.deleteStudent = async (req, res) => {
 
 }
 
-// download CSV data
+// download CSV data related to particular single student
 
 module.exports.download = async (req, res) => {
   const studentId = req.body.studentId;
@@ -209,14 +210,14 @@ module.exports.download = async (req, res) => {
   }
 };
 
-
+// download the csv data  of all student
 module.exports.downloadAll = async (req, res) => {
     try{
         const students = await Student.find({}); // Fetch all students
 
         for (const student of students) {
-            const path = `E://Placement//downloadAll//${student.email}.csv`
-            await generateCSV(student, path);
+            const path = `E://Placement//downloadAll//${student.email}.csv` // file path with unique name
+            await generateCSV(student, path); // call generate csv file with student and file path
         } 
         req.flash('success', 'Downloaded');
         res.redirect('back')
@@ -265,7 +266,7 @@ async function generateCSV(student, filePath){
                       InterviewCompany: interview.companyName,
                       InterviewDate: interview.date,
                       Role: interview.role,
-                      InterviewResult: allocate[0].status, // Assuming status is in Allocate
+                      InterviewResult: allocate[0].status, 
                     };
           
                     records.push(record);
@@ -273,7 +274,7 @@ async function generateCSV(student, filePath){
               }
             }
         }
-        else {
+        else { // this code help to generate csv data when student has not given any interview
             const record = {
                 SId: student.email,
                 Name: `${student.firstName} ${student.lastName}`,
@@ -287,14 +288,14 @@ async function generateCSV(student, filePath){
                 InterviewCompany: "N/A",
                 InterviewDate: "N/A",
                 Role: "N/A",
-                InterviewResult: "N/A", // Assuming status is in Allocate
+                InterviewResult: "N/A",
               };
-    
+              // push all records into reocords array
               records.push(record);
       }
         
      
-
+      // set the column header of csv file which is denoted by title in code
         const csvWriter = createCsvWriter({
           path: filePath, 
           header: [
@@ -312,6 +313,7 @@ async function generateCSV(student, filePath){
           ],
         });
     
+        // finally write the data
         await csvWriter.writeRecords(records);
         
       } catch (error) {

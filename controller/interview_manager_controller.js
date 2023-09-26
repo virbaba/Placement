@@ -2,6 +2,7 @@ const Interview = require('../models/interview_detail');
 const Student = require('../models/student_detail');
 const Allocate = require('../models/allocated_interview_detail');
 
+// display the details of interview in LIFO order
 module.exports.details = async (req, res)=>{
    try{
         if(!req.isAuthenticated()){
@@ -155,7 +156,7 @@ module.exports.allocate = async (req, res) => {
     }
 }
 
-// update the interview status
+// update the interview status by fail, hold and pass
 module.exports.updateStatus = async (req, res) => {
     try{
         const sId = req.body.studentId; 
