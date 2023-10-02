@@ -62,10 +62,11 @@ other wise goes to downloadAll folder
 in this i use linkedIN job api that help to display real jobs and allow to apply in reality
 
 
-/* use full API */
+/* useful package */
+
     "connect-flash": "^0.1.1", -> for notificaion feature
     "connect-mongo": "^5.0.0", -> store cookie into databasse
-    "cookie-parser": "^1.4.6", -> generate cookie
+    "cookie-parser": "^1.4.6", -> parse the cookie object
     "csv-writer": "^1.6.0", -> write data into CSV file comma seprated file
     "ejs": "^3.1.9", -> view engine
     "express": "^4.18.2", -> server engine
