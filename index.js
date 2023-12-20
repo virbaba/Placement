@@ -75,7 +75,7 @@ app.use(session({
 
     store: mongoStore.create(
         {
-            mongoUrl:"mongodb://127.0.0.1:27017/Placement",
+            mongoUrl:"mongodb+srv://virbaba:abc123@cluster0.wtn8e8t.mongodb.net/Placement",
             autoRemove: 'disabled'
         },
         (err)=>{
